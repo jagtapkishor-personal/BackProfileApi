@@ -10,14 +10,27 @@ app.use(cors());
 app.use(bodyparser.json());
 // Database Connnection 
 
-mongoose.connect(process.env.mongodburl, { useNewUrlParser: true }, (err) => {
-  if (err) {
-    console.log('db connection failed...', err);
-  }
-  else {
-    console.log('db connection success...');
-  }
+
+
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://jagtapkishor104:Kishor@104@cluster0.jh8ujo0.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+client.connect(err => {
+  const collection = client.db("BackApi").collection("registers");
+  // perform actions on the collection object
+  client.close();
 });
+
+
+
+// mongoose.connect(process.env.mongodbUrl, { useNewUrlParser: true }, (err) => {
+//   if (err) {
+//     console.log('db connection failed...', err);
+//   }
+//   else {
+//     console.log('db connection success...');
+//   }
+// });
 
 
 app.get('/getRegister', async (req, res) => {
