@@ -12,13 +12,23 @@ app.use(bodyparser.json());
 
 
 
+
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://jagtapkishor104:Kishor@104@cluster0.jh8ujo0.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://jagtapkishor104:Kishor%40104@cluster0.jh8ujo0.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 client.connect(err => {
-  const collection = client.db("BackApi").collection("registers");
-  // perform actions on the collection object
-  client.close();
+    if(err)
+    {
+        console.log(err);
+        const collection = client.db("BackApi").collection("registers");
+        // perform actions on the collection object
+        client.close();
+        console.log(`hello`);
+    }
+    else{
+        const collection = client.db("BackApi").collection("registers");
+        console.log(`db connection success...`);
+    }
 });
 
 
@@ -36,6 +46,7 @@ client.connect(err => {
 app.get('/getRegister', async (req, res) => {
   console.log('reg GEtdata');
   const data = await regModel.find();
+  console.log(data);
   if (data.length > 0) {
       res.send({
           msg: "all user data",
