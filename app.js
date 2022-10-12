@@ -93,9 +93,11 @@ app.post('/saveRegister', async (req, res) => {
   }
 });
 
-app.get("/",()=>
+app.get("/",(req,res)=>
 {
-    console.log(`App Working Fine`);
+    res.send({
+        message:"App working fine"
+    })
 })
 
 
