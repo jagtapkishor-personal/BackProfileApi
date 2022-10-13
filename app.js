@@ -8,9 +8,7 @@ const regModel = require('./Model/register');
 const app = express();
 app.use(cors());
 app.use(bodyparser.json());
-let corsOptions = {
-    origin: ['https://backapi104.herokuapp.com', 'https://localhost:3000', 'https://localhost:4200', 'https://localhost:4201'],
-}
+
 // Database Connnection 
 
 
@@ -46,7 +44,7 @@ mongoose.connect(process.env.mongodbUrl, { useNewUrlParser: true, useUnifiedTopo
 });
 
 
-app.get('/getRegister', cors(corsOptions), async (req, res) => {
+app.get('/getRegister',  async (req, res) => {
     console.log('reg GEtdata');
     const data = await regModel.find();
     console.log(data);
@@ -67,7 +65,7 @@ app.get('/getRegister', cors(corsOptions), async (req, res) => {
 });
 
 
-app.post('/saveRegister', cors(corsOptions), async (req, res) => {
+app.post('/saveRegister',  async (req, res) => {
     console.log(req.body, 'register postdata');
     const chkdataexit = await regModel.findOne({ $or: [{ email: req.body.email }, { mobile: req.body.mobile }] });
     console.log(chkdataexit);
