@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(bodyparser.json());
 let corsOptions = {
-    origin: ['https://backapi104.herokuapp.com', 'https://localhost:3000'],
+    origin: ['https://backapi104.herokuapp.com', 'https://localhost:3000', 'https://localhost:4200', 'https://localhost:4201'],
 }
 // Database Connnection 
 
