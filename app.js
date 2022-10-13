@@ -51,7 +51,8 @@ app.get('/getRegister', async (req, res) => {
         res.send({
             msg: "all user data",
             response: 200,
-            result: data
+            result: data,
+            success:true
         });
     } else {
         res.send({
