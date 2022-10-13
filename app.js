@@ -61,6 +61,7 @@ app.get('/getRegister',cors(corsOptions), async (req, res) => {
         res.send({
             msg: "No Data Found",
             response: 404
+
         });
     }
 });
@@ -120,6 +121,7 @@ app.post('/saveRegister',cors(corsOptions), async (req, res) => {
         });
     }
 });
+
 
 app.get("/", (req, res) => {
     res.send({
