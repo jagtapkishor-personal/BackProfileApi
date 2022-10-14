@@ -6,7 +6,22 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const regModel = require('./Model/register');
 const app = express();
-app.use(cors());
+const corsOpts = {
+    origin: '*',
+    methods: [
+        'GET',
+        'POST',
+        'PUT',
+        'DELETE'
+    ],
+    allowedHeaders: [
+        'Content-Type',
+    ],
+    AllowCredentials: [
+        true
+    ]
+};
+app.use(cors(corsOpts));
 app.use(bodyparser.json());
 
 // Database Connnection 
@@ -44,7 +59,7 @@ mongoose.connect(process.env.mongodbUrl, { useNewUrlParser: true, useUnifiedTopo
 });
 
 
-app.get('/getRegister',  async (req, res) => {
+app.get('/getRegister', async (req, res) => {
     console.log('reg GEtdata');
     const data = await regModel.find();
     console.log(data);
@@ -65,7 +80,7 @@ app.get('/getRegister',  async (req, res) => {
 });
 
 
-app.post('/saveRegister',  async (req, res) => {
+app.post('/saveRegister', async (req, res) => {
     console.log(req.body, 'register postdata');
     const chkdataexit = await regModel.findOne({ $or: [{ email: req.body.email }, { mobile: req.body.mobile }] });
     console.log(chkdataexit);
