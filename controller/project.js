@@ -24,21 +24,30 @@ exports.postProject = async (req, res) => {
     const data = new proSchema({
         name: req.body.name,
         desc: req.body.desc,
-        link: req.body.link,
+        link: req.body.link?req.body.link:'',
+        image: req.file?.originalname,
+        path: req.file?.path,
     });
+    if (proSchema.length != Object.values(req.body).length) {
+       res.send({
+        message:"Send Required Fields"
+       })
+    }
+    else {
 
-    data.save((err, result) => {
-        if (err) {
-        }
-        else {
-            res.send({
-                message: "Data saved",
-                data: result,
-                success: true,
-                response: 200
-            });
-        }
-    })
+        data.save((err, result) => {
+            if (err) {
+            }
+            else {
+                res.send({
+                    message: "Data saved",
+                    data: result,
+                    success: true,
+                    response: 200
+                });
+            }
+        })
+    }
 }
 
 exports.deleteProject = async (req, res) => {

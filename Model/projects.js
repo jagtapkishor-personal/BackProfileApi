@@ -2,17 +2,21 @@ const mongoose = require("mongoose");
 
 const projectSchema = new mongoose.Schema({
     name: {
-        require: true,
+        required: true,
         type: String
     },
     desc: {
-        require: true,
+        required: true,
         type: String
     },
     link: {
-        require: false,
+        required: false,
+        type: String
+    },
+    image: {
+        require: true,
         type: String
     }
 });
 
-module.exports=mongoose.model("project",projectSchema);
+module.exports = mongoose.model("project", projectSchema);

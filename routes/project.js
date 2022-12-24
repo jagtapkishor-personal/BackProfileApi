@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const proSchema = require("../Model/projects");
-const mongoose = require("mongoose");
+const multer = require("multer")
 const controller = require("../controller/project")
 router.get("/", (req, res) => {
     res.send({
@@ -9,9 +8,22 @@ router.get("/", (req, res) => {
     })
 })
 
+
+var upload = multer({
+    storage: multer.diskStorage({
+        destination: (req, res, callback) => {
+            let type = req.params.type;
+            let path = "./assets/projectImages"
+            callback(null, path)
+        },
+        filename: (req, file, callback) => {
+            callback(null, file.originalname, file.fieldname)
+        }
+    })
+});
 router.get("/getProject", controller.getProject);
 
-router.post("/postProject", controller.postProject);
+router.post("/postProject", upload.single("image"), controller.postProject);
 
 router.delete("/deleteProject/:id",);
 

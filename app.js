@@ -25,7 +25,9 @@ const corsOpts = {
 };
 app.use(cors(corsOpts));
 app.use(bodyparser.json());
-
+app.use(bodyparser.urlencoded({
+    extended: true
+}));
 app.use("/project", project);
 app.use("/register", register);
 app.use("/company", company);
