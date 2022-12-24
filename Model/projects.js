@@ -16,6 +16,10 @@ const projectSchema = new mongoose.Schema({
     image: {
         require: true,
         type: String
+    },
+    path:{
+        required:false,
+        type:String
     }
 });
 
